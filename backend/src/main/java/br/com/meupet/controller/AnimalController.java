@@ -1,7 +1,9 @@
 package br.com.meupet.controller;
 
+import br.com.meupet.dto.AnimalDTO;
 import br.com.meupet.entity.Animal;
 import br.com.meupet.service.AnimalService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +21,13 @@ public class AnimalController {
         return service.listarTodos();
     }
 
+    @GetMapping("/{id}")
+    public Animal buscar(@PathVariable Long id) {
+        return service.buscarPorId(id);
+    }
+
     @PostMapping
-    public Animal salvar(@RequestBody Animal animal) {
-        return service.salvar(animal);
+    public Animal salvar(@RequestBody @Valid AnimalDTO dto) {
+        return service.salvar(dto);
     }
 }
