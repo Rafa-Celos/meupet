@@ -7,15 +7,15 @@ import lombok.Data;
 @Data
 public class AnimalDTO {
 
-    @NotBlank(message = "Nome é obrigatório")
+    @NotBlank(message = "O nome é obrigatório.")
     private String nome;
 
-    @NotBlank(message = "Espécie é obrigatória")
+    @NotBlank(message = "A espécie é obrigatória.")
     private String especie;
 
     private String raca;
 
-    @NotNull(message = "Idade é obrigatória")
+    @NotNull(message = "A idade é obrigatória.")
     private Integer idade;
 
     private String sexo;
