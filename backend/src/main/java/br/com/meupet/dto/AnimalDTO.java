@@ -3,18 +3,28 @@ package br.com.meupet.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Data
 public class AnimalDTO {
 
+    @Schema(description = "Nome do animal",
+    example = "Rex"
+    )
     @NotBlank(message = "O nome é obrigatório.")
     private String nome;
 
+    @Schema(description = "Espécie do animal",
+    example = "Cachorro"
+    )
     @NotBlank(message = "A espécie é obrigatória.")
     private String especie;
 
     private String raca;
 
+    @Schema(description = "Idade do animal",
+    example = "3"
+    )
     @NotNull(message = "A idade é obrigatória.")
     private Integer idade;
 
