@@ -1,6 +1,7 @@
 package br.com.meupet.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,20 @@ public class GlobalExceptionHandler {
                         ));
 
         return erros;
+    }
+
+    @ExceptionHandler(CpfJaCadastradoException.class)
+    public ResponseEntity<Map<String, String>> tratarCpfDuplicado(
+            CpfJaCadastradoException ex
+    ) {
+
+        Map<String, String> erro = new HashMap<>();
+
+        erro.put("cpf", ex.getMessage());
+
+        return ResponseEntity
+                .badRequest()
+                .body(erro);
     }
 
 }

@@ -9,13 +9,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class AnimalDTO {
 
     @Schema(description = "Nome do animal",
-    example = "Rex"
+    example = "Jullyetta"
     )
     @NotBlank(message = "O nome é obrigatório.")
     private String nome;
 
     @Schema(description = "Espécie do animal",
-    example = "Cachorro"
+    example = "Gato"
     )
     @NotBlank(message = "A espécie é obrigatória.")
     private String especie;
@@ -23,7 +23,7 @@ public class AnimalDTO {
     private String raca;
 
     @Schema(description = "Idade do animal",
-    example = "3"
+    example = "8"
     )
     @NotNull(message = "A idade é obrigatória.")
     private Integer idade;
