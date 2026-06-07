@@ -2,6 +2,7 @@ package br.com.meupet.service;
 
 import br.com.meupet.dto.AnimalDTO;
 import br.com.meupet.entity.Animal;
+import br.com.meupet.entity.StatusAnimal;
 import br.com.meupet.repository.AnimalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,11 @@ public class AnimalService {
                 .idade(dto.getIdade())
                 .sexo(dto.getSexo())
                 .porte(dto.getPorte())
-                .status(dto.getStatus())
+                .status(
+                        dto.getStatus() != null
+                                ? dto.getStatus()
+                                : StatusAnimal.DISPONIVEL
+                )
                 .observacoes(dto.getObservacoes())
                 .build();
 

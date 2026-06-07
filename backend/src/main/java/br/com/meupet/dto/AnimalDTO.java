@@ -1,5 +1,6 @@
 package br.com.meupet.dto;
 
+import br.com.meupet.entity.StatusAnimal;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class AnimalDTO {
 
     private String porte;
 
-    private String status;
+    private StatusAnimal status;
 
     private String observacoes;
 }
