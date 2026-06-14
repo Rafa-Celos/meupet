@@ -6,35 +6,28 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "animals")
+@Table(name = "adocoes")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+public class Adocao {
 
-public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
-
-    private String especie;
-
-    private String raca;
-
-    private Integer idade;
-
-    private String sexo;
-
-    private String porte;
-
-    @Enumerated(EnumType.STRING)
-    private StatusAnimal status;
-
-    private LocalDate dataResgate;
+    private LocalDate dataAdocao;
 
     @Column(length = 1000)
     private String observacoes;
+
+    @ManyToOne
+    @JoinColumn(name = "animal_id")
+    private Animal animal;
+
+    @ManyToOne
+    @JoinColumn(name = "adotante_id")
+    private Adotante adotante;
 }
