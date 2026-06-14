@@ -44,6 +44,20 @@ public class GlobalExceptionHandler {
                 .body(erro);
     }
 
+    @ExceptionHandler(AnimalIndisponivelException.class)
+    public ResponseEntity<Map<String, String>> tratarAnimalIndisponivel(
+            AnimalIndisponivelException ex
+    ) {
+
+        Map<String, String> erro = new HashMap<>();
+
+        erro.put("adocao", ex.getMessage());
+
+        return ResponseEntity
+                .badRequest()
+                .body(erro);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, String>>
     tratarRecursoNaoEncontrado(
@@ -58,5 +72,4 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(erro);
     }
-
 }
