@@ -3,6 +3,7 @@ package br.com.meupet.service;
 import br.com.meupet.dto.AdocaoDTO;
 import br.com.meupet.entity.*;
 import br.com.meupet.exception.AnimalIndisponivelException;
+import br.com.meupet.exception.ResourceNotFoundException;
 import br.com.meupet.repository.AdocaoRepository;
 import br.com.meupet.repository.AdotanteRepository;
 import br.com.meupet.repository.AnimalRepository;
@@ -22,10 +23,18 @@ public class AdocaoService {
     public Adocao realizarAdocao(AdocaoDTO dto) {
 
         Animal animal = animalRepository.findById(dto.getAnimalId())
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Animal não encontrado."
+                        )
+                );
 
         Adotante adotante = adotanteRepository.findById(dto.getAdotanteId())
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Adotante não encontrado."
+                        )
+                );
 
         if (animal.getStatus() != StatusAnimal.DISPONIVEL) {
             throw new AnimalIndisponivelException(

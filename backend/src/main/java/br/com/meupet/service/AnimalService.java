@@ -3,6 +3,7 @@ package br.com.meupet.service;
 import br.com.meupet.dto.AnimalDTO;
 import br.com.meupet.entity.Animal;
 import br.com.meupet.entity.StatusAnimal;
+import br.com.meupet.exception.ResourceNotFoundException;
 import br.com.meupet.repository.AnimalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,11 @@ public class AnimalService {
 
     public Animal buscarPorId(Long id) {
         return repository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Animal não encontrado."
+                        )
+                );
     }
 
     public Animal salvar(AnimalDTO dto) {

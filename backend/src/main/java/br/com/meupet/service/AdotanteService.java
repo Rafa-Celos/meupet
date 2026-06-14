@@ -3,6 +3,7 @@ package br.com.meupet.service;
 import br.com.meupet.dto.AdotanteDTO;
 import br.com.meupet.entity.Adotante;
 import br.com.meupet.exception.CpfJaCadastradoException;
+import br.com.meupet.exception.ResourceNotFoundException;
 import br.com.meupet.repository.AdotanteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,11 @@ public class AdotanteService {
 
     public Adotante buscarPorId(Long id) {
         return repository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Adotante não encontrado."
+                        )
+                );
     }
 
     public Adotante salvar(AdotanteDTO dto) {

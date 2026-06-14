@@ -58,4 +58,18 @@ public class GlobalExceptionHandler {
                 .body(erro);
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, String>>
+    tratarRecursoNaoEncontrado(
+            ResourceNotFoundException ex
+    ) {
+
+        Map<String, String> erro = new HashMap<>();
+
+        erro.put("erro", ex.getMessage());
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(erro);
+    }
 }
