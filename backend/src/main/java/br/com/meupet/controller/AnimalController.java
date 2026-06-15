@@ -5,6 +5,7 @@ import br.com.meupet.entity.Animal;
 import br.com.meupet.service.AnimalService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -61,5 +62,13 @@ public class AnimalController {
             @RequestBody @Valid AnimalDTO dto
     ) {
         return service.atualizar(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(
+            @PathVariable Long id
+    ) {
+        service.excluir(id);
     }
 }

@@ -72,4 +72,40 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(erro);
     }
+
+    @ExceptionHandler(
+            EntidadePossuiVinculosException.class
+    )
+    public ResponseEntity<Map<String, String>>
+    tratarEntidadePossuiVinculos(
+            EntidadePossuiVinculosException ex
+    ) {
+
+        Map<String, String> erro =
+                new HashMap<>();
+
+        erro.put("erro", ex.getMessage());
+
+        return ResponseEntity
+                .badRequest()
+                .body(erro);
+    }
+
+    @ExceptionHandler(
+            EntidadeInativaException.class
+    )
+    public ResponseEntity<Map<String, String>>
+    tratarEntidadeInativa(
+            EntidadeInativaException ex
+    ) {
+
+        Map<String, String> erro =
+                new HashMap<>();
+
+        erro.put("erro", ex.getMessage());
+
+        return ResponseEntity
+                .badRequest()
+                .body(erro);
+    }
 }

@@ -37,4 +37,6 @@ public class Animal {
 
     @Column(length = 1000)
     private String observacoes;
+
+    private boolean ativo;
 }

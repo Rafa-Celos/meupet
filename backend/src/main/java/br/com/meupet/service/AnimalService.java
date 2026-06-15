@@ -3,7 +3,10 @@ package br.com.meupet.service;
 import br.com.meupet.dto.AnimalDTO;
 import br.com.meupet.entity.Animal;
 import br.com.meupet.entity.StatusAnimal;
+import br.com.meupet.exception.EntidadeInativaException;
+import br.com.meupet.exception.EntidadePossuiVinculosException;
 import br.com.meupet.exception.ResourceNotFoundException;
+import br.com.meupet.repository.AdocaoRepository;
 import br.com.meupet.repository.AnimalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,9 +18,10 @@ import java.util.List;
 public class AnimalService {
 
     private final AnimalRepository repository;
+    private final AdocaoRepository adocaoRepository;
 
     public List<Animal> listarTodos() {
-        return repository.findAll();
+        return repository.findByAtivoTrue();
     }
 
     public Animal buscarPorId(Long id) {
@@ -44,6 +48,7 @@ public class AnimalService {
                                 : StatusAnimal.DISPONIVEL
                 )
                 .observacoes(dto.getObservacoes())
+                .ativo(true)
                 .build();
 
         return repository.save(animal);
@@ -71,5 +76,29 @@ public class AnimalService {
         }
 
         return repository.save(animal);
+    }
+
+    public void excluir(Long id) {
+
+        Animal animal = buscarPorId(id);
+
+        if (!animal.isAtivo()) {
+            throw new EntidadeInativaException(
+                    "O animal já está inativo."
+            );
+        }
+
+        if (adocaoRepository
+                .existsByAnimalId(id)) {
+
+            throw new
+                    EntidadePossuiVinculosException(
+                    "O animal possui adoções vinculadas."
+            );
+        }
+
+        animal.setAtivo(false);
+
+        repository.save(animal);
     }
 }
