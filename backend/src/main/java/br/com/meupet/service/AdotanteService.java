@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+
+
 @Service
 @RequiredArgsConstructor
 public class AdotanteService {
@@ -34,9 +36,10 @@ public class AdotanteService {
 
         if (repository.existsByCpf(dto.getCpf())) {
             throw new CpfJaCadastradoException(
-                    "Já existe um adotante cadastrado com este CPF."
+                    "O CPF já está cadastrado."
             );
         }
+
 
         Adotante adotante = Adotante.builder()
                 .nome(dto.getNome())
@@ -47,6 +50,32 @@ public class AdotanteService {
                 .observacoes(dto.getObservacoes())
                 .dataCadastro(LocalDate.now())
                 .build();
+
+        return repository.save(adotante);
+    }
+
+    public Adotante atualizar(
+            Long id,
+            AdotanteDTO dto
+    ) {
+
+        Adotante adotante = buscarPorId(id);
+
+        if (repository.existsByCpfAndIdNot(
+                dto.getCpf(),
+                id
+        )) {
+            throw new CpfJaCadastradoException(
+                    "O CPF já está cadastrado."
+            );
+        }
+
+        adotante.setNome(dto.getNome());
+        adotante.setTelefone(dto.getTelefone());
+        adotante.setEmail(dto.getEmail());
+        adotante.setCpf(dto.getCpf());
+        adotante.setEndereco(dto.getEndereco());
+        adotante.setObservacoes(dto.getObservacoes());
 
         return repository.save(adotante);
     }

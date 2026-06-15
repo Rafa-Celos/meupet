@@ -48,4 +48,16 @@ public class AdotanteController {
     public Adotante salvar(@RequestBody @Valid AdotanteDTO dto) {
         return service.salvar(dto);
     }
+
+
+    @Operation(
+            summary = "Atualizar os dados do adotante."
+    )
+    @PutMapping("/{id}")
+    public Adotante atualizar(
+            @PathVariable Long id,
+            @RequestBody @Valid AdotanteDTO dto
+    ) {
+        return service.atualizar(id, dto);
+    }
 }
