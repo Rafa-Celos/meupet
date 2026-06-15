@@ -48,4 +48,28 @@ public class AnimalService {
 
         return repository.save(animal);
     }
+
+    public Animal atualizar(Long id, AnimalDTO dto) {
+
+        Animal animal = repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Animal não encontrado."
+                        )
+                );
+
+        animal.setNome(dto.getNome());
+        animal.setEspecie(dto.getEspecie());
+        animal.setRaca(dto.getRaca());
+        animal.setIdade(dto.getIdade());
+        animal.setSexo(dto.getSexo());
+        animal.setPorte(dto.getPorte());
+        animal.setObservacoes(dto.getObservacoes());
+
+        if (dto.getStatus() != null) {
+            animal.setStatus(dto.getStatus());
+        }
+
+        return repository.save(animal);
+    }
 }

@@ -29,7 +29,6 @@ public class AnimalController {
             summary = "Listar animais.",
             description = "Retorna todos os animais cadastrados."
     )
-
     @GetMapping
     public List<Animal> listar() {
         return service.listarTodos();
@@ -39,7 +38,6 @@ public class AnimalController {
             summary = "Buscar animal por ID.",
             description = "Retorna um animal pelo específico pelo ID."
     )
-
     @GetMapping("/{id}")
     public Animal buscar(@PathVariable Long id) {
         return service.buscarPorId(id);
@@ -49,9 +47,19 @@ public class AnimalController {
             summary = "Cadastrar animal.",
             description = "Cadastra um novo animal para adoção."
     )
-
     @PostMapping
     public Animal salvar(@RequestBody @Valid AnimalDTO dto) {
         return service.salvar(dto);
+    }
+
+    @Operation(
+            summary = "Atualizar os dados do animal."
+    )
+    @PutMapping("/{id}")
+    public Animal atualizar(
+            @PathVariable Long id,
+            @RequestBody @Valid AnimalDTO dto
+    ) {
+        return service.atualizar(id, dto);
     }
 }
