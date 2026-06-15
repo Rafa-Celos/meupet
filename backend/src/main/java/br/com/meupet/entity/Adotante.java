@@ -33,4 +33,6 @@ public class Adotante {
     private String observacoes;
 
     private LocalDate dataCadastro;
+
+    private boolean ativo;
 }
