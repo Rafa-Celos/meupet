@@ -108,4 +108,22 @@ public class GlobalExceptionHandler {
                 .badRequest()
                 .body(erro);
     }
+
+    @ExceptionHandler(
+            RegraDeNegocioException.class
+    )
+    public ResponseEntity<Map<String, String>>
+    tratarRegraDeNegocio(
+            RegraDeNegocioException ex
+    ) {
+
+        Map<String, String> erro =
+                new HashMap<>();
+
+        erro.put("erro", ex.getMessage());
+
+        return ResponseEntity
+                .badRequest()
+                .body(erro);
+    }
 }
