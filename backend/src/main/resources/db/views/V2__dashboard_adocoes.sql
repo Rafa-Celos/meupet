@@ -1,20 +1,8 @@
-CREATE OR REPLACE VIEW vw_dashboard_adocoes AS
+CREATE OR REPLACE VIEW public.vw_dashboard_adocoes AS
 SELECT
-    COUNT(*) AS total_adocoes,
-
+    adotados AS total_adocoes,
     ROUND(
-        (
-            COUNT(*)::numeric
-            /
-            NULLIF(
-                (
-                    SELECT COUNT(*)
-                    FROM animals
-                ),
-                0
-            )
-        ) * 100,
-        2
+        adotados::numeric / total_animais::numeric,
+        4
     ) AS percentual_adocao
-
-FROM adocoes;
+FROM public.vw_dashboard_animais;
